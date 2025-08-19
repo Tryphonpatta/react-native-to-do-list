@@ -37,9 +37,6 @@ expo init --npm
 cd ...
 ```
 
-- This opens a browser page with a QR code.
-- Scan with **Expo Go** to run the app on your phone.
-
 ---
 
 ## 3. Install twrnc (Tailwind for React Native)
