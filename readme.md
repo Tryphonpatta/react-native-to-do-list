@@ -26,6 +26,9 @@ This guide explains how to create a React Native app using **Node.js** and **Exp
 ## 1. Create a new React Native project
 
 ```bash
+npx create-expo-app@latest
+```
+```bash
 expo init --npm
 ```
 
@@ -36,9 +39,6 @@ expo init --npm
 ```bash
 cd ...
 ```
-
-- This opens a browser page with a QR code.
-- Scan with **Expo Go** to run the app on your phone.
 
 ---
 
