@@ -9,15 +9,22 @@ import {
 } from "react-native";
 import tw from "twrnc";
 
+type TodoItem = {
+  id: number;
+  title: string;
+};
+
 export default function TodoList() {
   const [task, setTask] = useState("");
-  const [todos, setTodos] = useState<string[]>([]);
+  const [todos, setTodos] = useState<TodoItem[]>([]);
   const user = "pattad";
 
   const fetchTodos = async () => {
     const items = await axios.get(`https://todolist.floggy.online/${user}`);
     console.log("Fetched items:", items.data);
-    setTodos(items.data.map((item: any) => item.title));
+    setTodos(
+      items.data.map((item: any) => ({ id: item.id, title: item.title }))
+    );
   };
   useEffect(() => {
     fetchTodos();
@@ -32,12 +39,15 @@ export default function TodoList() {
         }
       );
       console.log("Added task:", task.trim());
-      setTodos([...todos, task.trim()]);
+      setTodos([...todos, { id: item.data.id, title: task.trim() }]);
       setTask("");
     }
   };
 
   const removeTask = (index: number) => {
+    const items = axios.delete(
+      `https://todolist.floggy.online/${user}/items/${todos[index].id}`
+    );
     const newTodos = todos.filter((_, i) => i !== index);
     setTodos(newTodos);
   };
@@ -69,7 +79,7 @@ export default function TodoList() {
             onPress={() => removeTask(index)}
             style={tw`bg-white px-4 py-3 rounded mb-2 shadow`}
           >
-            <Text style={tw`text-gray-800`}>{item}</Text>
+            <Text style={tw`text-gray-800`}>{item.title}</Text>
           </TouchableOpacity>
         )}
       />
