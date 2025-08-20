@@ -14,8 +14,24 @@ export default function TodoList() {
   const [todos, setTodos] = useState<string[]>([]);
   const user = "pattad";
 
+  const fetchTodos = async () => {
+    const items = await axios.get(`https://todolist.floggy.online/${user}`);
+    console.log("Fetched items:", items.data);
+    setTodos(items.data.map((item: any) => item.title));
+  };
+  useEffect(() => {
+    fetchTodos();
+  }, []);
+
   const addTask = async () => {
     if (task.trim() !== "") {
+      const item = await axios.post(
+        `https://todolist.floggy.online/${user}/items`,
+        {
+          title: task.trim(),
+        }
+      );
+      console.log("Added task:", task.trim());
       setTodos([...todos, task.trim()]);
       setTask("");
     }
