@@ -26,6 +26,9 @@ This guide explains how to create a React Native app using **Node.js** and **Exp
 ## 1. Create a new React Native project
 
 ```bash
+npx create-expo-app@latest
+```
+```bash
 expo init --npm
 ```
 
